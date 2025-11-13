@@ -221,9 +221,9 @@
         </AnchorPane>
       <AnchorPane layoutX="263.0" layoutY="10.0" prefHeight="710.0" prefWidth="1146.0">
          <children>
-            <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#836fff" height="677.0" layoutX="798.0" layoutY="19.0" stroke="BLACK" strokeType="INSIDE" width="328.0" />
+            <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#564f84" height="677.0" layoutX="798.0" layoutY="19.0" stroke="BLACK" strokeType="INSIDE" width="328.0" />
             <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#564f84" height="600.0" layoutX="12.0" layoutY="96.0" stroke="BLACK" strokeType="INSIDE" width="778.0" />
-            <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#836fff" height="70.0" layoutX="12.0" layoutY="19.0" stroke="BLACK" strokeType="INSIDE" width="778.0" />
+            <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#564f84" height="70.0" layoutX="12.0" layoutY="19.0" stroke="BLACK" strokeType="INSIDE" width="778.0" />
             <TextField fx:id="orderItemSearchBox" layoutX="50.0" layoutY="36.0" onAction="#orderItemSearchBoxBtn" prefHeight="36.0" prefWidth="328.0" promptText="Search Item ID" />
             <Button layoutX="334.0" layoutY="39.0" mnemonicParsing="false" onAction="#orderSearchIconBtn" prefHeight="30.0" prefWidth="43.0" style="-fx-background-color: #ffffff; -fx-background-radius: 0;" text="🔍">
                <font>
@@ -256,9 +256,10 @@
             <TableView fx:id="tblOrder" layoutX="27.0" layoutY="274.0" prefHeight="400.0" prefWidth="750.0">
               <columns>
                 <TableColumn fx:id="colOrderCode" prefWidth="126.4000244140625" text="Code" />
-                <TableColumn fx:id="colOrderName" prefWidth="310.4000244140625" text="Name" />
-                  <TableColumn fx:id="colOrderQty" prefWidth="147.199951171875" text="Qty" />
-                  <TableColumn fx:id="colOrderPrice" prefWidth="156.800048828125" text="Price" />
+                <TableColumn fx:id="colOrderName" prefWidth="200.800048828125" text="Name" />
+                  <TableColumn fx:id="colOrderQty" prefWidth="141.5999755859375" text="Qty" />
+                  <TableColumn fx:id="colOrderPrice" prefWidth="122.39990234375" text="Price" />
+                  <TableColumn fx:id="colOrderTotalPrice" prefWidth="155.99993896484375" text="Total Price" />
               </columns>
             </TableView>
             <Button layoutX="106.0" layoutY="204.0" onAction="#orderAddBtn" prefHeight="26.0" prefWidth="169.0" style="-fx-background-color: linear-gradient(to right, #00b09b, #96c93d); -fx-text-fill: white; -fx-background-radius: 10; -fx-font-weight: bold; -fx-cursor: hand;" text="Add" textFill="#fffcfc" />
@@ -269,35 +270,35 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Label layoutX="808.0" layoutY="230.0" prefHeight="30.0" prefWidth="86.0" text="Subtotal">
+            <Label layoutX="808.0" layoutY="230.0" prefHeight="30.0" prefWidth="86.0" text="Subtotal" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
             <Line endX="154.2000732421875" endY="7.62939453125E-6" layoutX="961.0" layoutY="280.0" startX="-153.0" startY="7.62939453125E-6" />
-            <Label layoutX="808.0" layoutY="297.0" prefHeight="30.0" prefWidth="120.0" text="Discount (2%)">
+            <Label layoutX="808.0" layoutY="297.0" prefHeight="30.0" prefWidth="120.0" text="Discount (2%)" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
             <Line endX="154.2000732421875" endY="7.62939453125E-6" layoutX="961.0" layoutY="347.0" startX="-153.0" startY="7.62939453125E-6" />
-            <Label layoutX="808.0" layoutY="369.0" prefHeight="30.0" prefWidth="86.0" text="TOTAL" textFill="#9c2727">
+            <Label layoutX="808.0" layoutY="369.0" prefHeight="30.0" prefWidth="86.0" text="TOTAL" textFill="#e40000">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
             <Line endX="154.2000732421875" endY="7.62939453125E-6" layoutX="961.0" layoutY="419.0" startX="-153.0" startY="7.62939453125E-6" />
-            <Label fx:id="orderSubTotalText" alignment="TOP_RIGHT" layoutX="949.0" layoutY="230.0" prefHeight="30.0" prefWidth="157.0" text="Rs.0.00">
+            <Label fx:id="orderSubTotalText" alignment="TOP_RIGHT" layoutX="949.0" layoutY="230.0" prefHeight="30.0" prefWidth="157.0" text="Rs.0.00" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Label fx:id="orderDiscountText" alignment="TOP_RIGHT" layoutX="949.0" layoutY="297.0" prefHeight="30.0" prefWidth="157.0" text="Rs.0.00">
+            <Label fx:id="orderDiscountText" alignment="TOP_RIGHT" layoutX="949.0" layoutY="297.0" prefHeight="30.0" prefWidth="157.0" text="Rs.0.00" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Label alignment="TOP_RIGHT" layoutX="949.0" layoutY="369.0" prefHeight="30.0" prefWidth="157.0" text="Rs.0.00">
+            <Label fx:id="orderFinalTotalText" alignment="TOP_RIGHT" layoutX="949.0" layoutY="369.0" prefHeight="30.0" prefWidth="157.0" text="Rs.0.00" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -308,7 +309,7 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Label layoutX="811.0" layoutY="448.0" prefHeight="30.0" prefWidth="177.0" text="💸 Customer Payout">
+            <Label layoutX="811.0" layoutY="448.0" prefHeight="30.0" prefWidth="177.0" text="💸 Customer Payout" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
