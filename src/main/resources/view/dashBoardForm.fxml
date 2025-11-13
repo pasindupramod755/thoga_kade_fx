@@ -1,14 +1,331 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="contraller.DashBoardFormContraller"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="699.0" prefWidth="1407.0" style="-fx-background-color: linear-gradient(to bottom right, #1e1e2f, #2d2d44);" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="contraller.DashBoardFormContraller">
 
+    <children>
+        <AnchorPane prefHeight="736.0" prefWidth="255.0" style="-fx-background-color: #2d3e50;">
+            <children>
+
+                <!-- Sidebar Title -->
+                <Label layoutX="46.0" layoutY="97.0" text="Thoga Kade" textFill="white">
+                    <font>
+                        <Font name="Segoe UI Black" size="26.0" />
+                    </font>
+                </Label>
+
+                <!-- Sidebar Buttons -->
+                <Button fx:id="btnHome" disable="true" layoutX="27.0" layoutY="191.0" onAction="#btnHomeAction" prefHeight="40.0" prefWidth="190.0" style="-fx-background-color: #836fff; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;" text="🏠  Home" />
+                <Button fx:id="btnCustomer" disable="true" layoutX="27.0" layoutY="321.0" onAction="#btnCustomerAction" prefHeight="40.0" prefWidth="190.0" style="-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand; -fx-font-weight: bold;" text="👥  Customer" />
+                <Button fx:id="btnItem" disable="true" layoutX="27.0" layoutY="385.0" onAction="#btnItemAction" prefHeight="40.0" prefWidth="190.0" style="-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;" text="📦  Item" />
+                <Button fx:id="btnOrder" disable="true" layoutX="27.0" layoutY="255.0" onAction="#btnOrderAction" prefHeight="40.0" prefWidth="190.0" style="-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;" text="📦 Order" />
+                <Button fx:id="btnLogOut" disable="true" layoutX="27.0" layoutY="448.0" onAction="#btnLogOutAction" prefHeight="40.0" prefWidth="190.0" style="-fx-background-color: linear-gradient(to right, #ff4e50, #f9d423); -fx-text-fill: white; -fx-background-radius: 10; -fx-font-weight: bold; -fx-cursor: hand;" text="🚪  Log Out" />
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="customerPane" layoutX="257.0" layoutY="2.0" prefHeight="728.0" prefWidth="1122.0" visible="false">
+            <children>
+                <TableView fx:id="tblCustomer" layoutX="30.0" layoutY="102.0" prefHeight="298.0" prefWidth="1103.0">
+                    <columns>
+                        <TableColumn fx:id="colId" prefWidth="67.19998168945312" text="ID" />
+                        <TableColumn fx:id="colName" prefWidth="106.39996337890625" text="Name" />
+                        <TableColumn fx:id="colDOB" prefWidth="110.39999389648438" text="Date Of Birth" />
+                        <TableColumn fx:id="colTitle" prefWidth="72.79998779296875" text="Title" />
+                        <TableColumn fx:id="colSalary" prefWidth="127.20001220703125" text="Salary" />
+                        <TableColumn fx:id="colAddress" prefWidth="168.0" text="Address" />
+                        <TableColumn fx:id="colCity" prefWidth="155.99993896484375" text="City" />
+                        <TableColumn fx:id="colProvince" prefWidth="170.40008544921875" text="Province" />
+                        <TableColumn fx:id="colPostalCode" prefWidth="120.7999267578125" text="Postal Code" />
+                    </columns>
+                </TableView>
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2d3e50" height="88.0" layoutX="-7.0" layoutY="646.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1169.0" />
+                <Label alignment="CENTER" layoutX="459.0" layoutY="39.0" prefHeight="38.0" prefWidth="222.0" text="Customer Management" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="txtId" layoutX="154.0" layoutY="431.0" prefHeight="26.0" prefWidth="222.0" />
+                <ChoiceBox fx:id="txtTitle" layoutX="154.0" layoutY="495.0" prefHeight="26.0" prefWidth="222.0" />
+                <TextField fx:id="txtName" layoutX="470.0" layoutY="431.0" prefHeight="26.0" prefWidth="216.0" />
+                <DatePicker fx:id="txtDate" layoutX="786.0" layoutY="431.0" prefHeight="26.0" prefWidth="216.0" />
+                <Label layoutX="154.0" layoutY="412.0" prefHeight="18.0" prefWidth="120.0" text="Customer ID" textFill="WHITE" />
+                <Label layoutX="470.0" layoutY="412.0" prefHeight="18.0" prefWidth="120.0" text="Name" textFill="WHITE" />
+                <Label layoutX="786.0" layoutY="412.0" prefHeight="18.0" prefWidth="120.0" text="Date of Birth" textFill="WHITE" />
+                <TextField fx:id="txtSalary" layoutX="470.0" layoutY="495.0" prefHeight="26.0" prefWidth="216.0" />
+                <Label layoutX="470.0" layoutY="476.0" prefHeight="18.0" prefWidth="120.0" text="Salary" textFill="WHITE" />
+                <Label layoutX="154.0" layoutY="476.0" prefHeight="18.0" prefWidth="120.0" text="Title" textFill="WHITE" />
+                <TextField fx:id="txtAddress" layoutX="786.0" layoutY="495.0" prefHeight="26.0" prefWidth="216.0" />
+                <Label layoutX="786.0" layoutY="476.0" prefHeight="18.0" prefWidth="120.0" text="Address" textFill="WHITE" />
+                <TextField fx:id="txtCity" layoutX="154.0" layoutY="560.0" prefHeight="26.0" prefWidth="222.0" />
+                <Label layoutX="154.0" layoutY="541.0" prefHeight="18.0" prefWidth="120.0" text="city" textFill="WHITE" />
+                <TextField fx:id="txtProvince" layoutX="470.0" layoutY="558.0" prefHeight="26.0" prefWidth="216.0" />
+                <Label layoutX="470.0" layoutY="539.0" prefHeight="18.0" prefWidth="120.0" text="province" textFill="WHITE" />
+                <TextField fx:id="txtpostalCode" layoutX="786.0" layoutY="557.0" prefHeight="26.0" prefWidth="216.0" />
+                <Label layoutX="786.0" layoutY="538.0" prefHeight="18.0" prefWidth="120.0" text="postalCode" textFill="WHITE" />
+                <Button layoutX="144.0" layoutY="670.0" onAction="#btnCustomerAddAction" prefHeight="38.0" prefWidth="145.0" style="-fx-background-color: linear-gradient(to right, #6a11cb, #b721ff);; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;" text="Add" />
+                <Button layoutX="384.0" layoutY="670.0" onAction="#btnCustomerDeleteAction" prefHeight="38.0" prefWidth="145.0" style="-fx-background-color: linear-gradient(to right, #6a11cb, #b721ff);; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;" text="Delete" />
+                <Button layoutX="625.0" layoutY="670.0" onAction="#btnCustomerUpdateAction" prefHeight="38.0" prefWidth="145.0" style="-fx-background-color: linear-gradient(to right, #6a11cb, #b721ff);; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;" text="Update" />
+                <Button layoutX="850.0" layoutY="670.0" onAction="#btnCustomerResetAction" prefHeight="38.0" prefWidth="145.0" style="-fx-background-color: linear-gradient(to right, #6a11cb, #b721ff);; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;" text="Reset" />
+            </children>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+        </AnchorPane>
+        <AnchorPane fx:id="itemPane" layoutX="255.0" layoutY="10.0" prefHeight="718.0" prefWidth="1150.0" visible="false">
+            <children>
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2d3e50" height="95.0" layoutX="-13.0" layoutY="630.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1177.0" />
+                <Label alignment="CENTER" layoutX="455.0" layoutY="31.0" prefHeight="38.0" prefWidth="222.0" text="Item Management" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+                <TableView fx:id="tblItem" layoutX="31.0" layoutY="94.0" prefHeight="298.0" prefWidth="1103.0">
+                    <columns>
+                        <TableColumn fx:id="colCode1" prefWidth="222.39996337890625" text="Code" />
+                        <TableColumn fx:id="colDescription1" prefWidth="320.00006103515625" text="Description" />
+                        <TableColumn fx:id="colCategory1" prefWidth="232.7999267578125" text="Category" />
+                        <TableColumn fx:id="colQty1" prefWidth="88.800048828125" text="Qty" />
+                        <TableColumn fx:id="colPrice1" prefWidth="234.39990234375" text="Price" />
+                    </columns>
+                </TableView>
+                <TextField fx:id="txtCode1" layoutX="166.0" layoutY="454.0" prefHeight="26.0" prefWidth="238.0" />
+                <TextField fx:id="txtDescription1" layoutX="457.0" layoutY="454.0" prefHeight="26.0" prefWidth="238.0" />
+                <Label layoutX="166.0" layoutY="435.0" prefHeight="18.0" prefWidth="120.0" text="Code" textFill="WHITE" />
+                <Label layoutX="457.0" layoutY="435.0" prefHeight="18.0" prefWidth="120.0" text="Description" textFill="WHITE" />
+                <TextField fx:id="txtCategory1" layoutX="166.0" layoutY="517.0" prefHeight="26.0" prefWidth="238.0" />
+                <Label layoutX="166.0" layoutY="498.0" prefHeight="18.0" prefWidth="120.0" text="Category" textFill="WHITE" />
+                <TextField fx:id="txtQty1" layoutX="757.0" layoutY="454.0" prefHeight="26.0" prefWidth="238.0" />
+                <Label layoutX="757.0" layoutY="435.0" prefHeight="18.0" prefWidth="120.0" text="Qty" textFill="WHITE" />
+                <TextField fx:id="txtPrice1" layoutX="457.0" layoutY="516.0" prefHeight="26.0" prefWidth="238.0" />
+                <Label layoutX="457.0" layoutY="497.0" prefHeight="18.0" prefWidth="120.0" text="Price" textFill="WHITE" />
+                <Button layoutX="153.0" layoutY="658.0" onAction="#btnItemAddAction" prefHeight="38.0" prefWidth="145.0" style="-fx-background-color: linear-gradient(to right, #6a11cb, #b721ff);; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;" text="Add" />
+                <Button layoutX="383.0" layoutY="658.0" onAction="#btnItemDeleteAction" prefHeight="38.0" prefWidth="145.0" style="-fx-background-color: linear-gradient(to right, #6a11cb, #b721ff);; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;" text="Delete" />
+                <Button layoutX="604.0" layoutY="658.0" onAction="#btnItemUpdateAction" prefHeight="38.0" prefWidth="145.0" style="-fx-background-color: linear-gradient(to right, #6a11cb, #b721ff);; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;" text="Update" />
+                <Button layoutX="817.0" layoutY="658.0" onAction="#btnItemResetAction" prefHeight="38.0" prefWidth="145.0" style="-fx-background-color: linear-gradient(to right, #6a11cb, #b721ff);; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;" text="Reset" />
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="loginPane" layoutX="363.0" layoutY="72.0" prefHeight="591.0" prefWidth="1008.0" visible="false">
+            <children>
+                <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#ffffff15" height="400.0" layoutX="66.0" layoutY="102.0" width="355.0">
+                    <effect>
+                        <DropShadow color="#00000080" radius="15.0" />
+                    </effect>
+                </Rectangle>
+                <ImageView fitHeight="490.0" fitWidth="531.0" layoutX="416.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../image/shop.jpg" />
+                    </image>
+                </ImageView>
+                <Label layoutX="135.0" layoutY="134.0" text="Thoga Kade" textFill="#ffffff">
+                    <font>
+                        <Font name="Segoe UI Bold" size="36.0" />
+                    </font>
+                </Label>
+                <Label layoutX="158.0" layoutY="185.0" text="Welcome to our system" textFill="#cfcfcf">
+                    <font>
+                        <Font name="Segoe UI" size="15.0" />
+                    </font>
+                </Label>
+                <Label layoutX="124.0" layoutY="247.0" text="Username" textFill="#ffffff">
+                    <font>
+                        <Font name="Segoe UI Bold" size="15.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="txtUserName" layoutX="124.0" layoutY="277.0" onAction="#btnuserName" prefHeight="36.0" prefWidth="239.0" promptText="Enter your username" style="-fx-background-color: rgba(255,255,255,0.2);                         -fx-text-fill: white;                         -fx-prompt-text-fill: #bbbbbb;                         -fx-background-radius: 10;                         -fx-border-color: white;                         -fx-border-radius: 10;                         -fx-border-width: 1;" />
+                <Label layoutX="124.0" layoutY="322.0" text="Password" textFill="#ffffff">
+                    <font>
+                        <Font name="Segoe UI Bold" size="15.0" />
+                    </font>
+                </Label>
+                <PasswordField fx:id="txtPassword" layoutX="124.0" layoutY="352.0" onAction="#btnpasswordAction" prefHeight="36.0" prefWidth="239.0" promptText="Enter your password" style="-fx-background-color: rgba(255,255,255,0.2);                             -fx-text-fill: white;                             -fx-prompt-text-fill: #bbbbbb;                             -fx-background-radius: 10;                             -fx-border-color: white;                             -fx-border-radius: 10;                             -fx-border-width: 1;" />
+                <Button layoutX="187.0" layoutY="417.0" mnemonicParsing="false" onAction="#btnLoginAction" prefHeight="36.0" prefWidth="120.0" style="-fx-background-color: linear-gradient(to right, #6a5acd, #836fff);                      -fx-text-fill: white;                      -fx-font-weight: bold;                      -fx-background-radius: 20;                      -fx-cursor: hand;" text="Login">
+                    <effect>
+                        <DropShadow color="#00000060" radius="10.0" />
+                    </effect>
+                </Button>
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="accountPane" layoutX="314.0" layoutY="114.0" prefHeight="508.0" prefWidth="1046.0" visible="false">
+            <children>
+                <ImageView fitHeight="104.0" fitWidth="120.0" layoutX="63.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../image/profile.png" />
+                    </image>
+                </ImageView>
+                <Label fx:id="changeNameLabel" layoutX="180.0" layoutY="89.0" prefHeight="52.0" prefWidth="222.0" text="Hi Pasindu" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="36.0" />
+                    </font>
+                </Label>
+                <Circle fill="#57c449" layoutX="235.0" layoutY="275.0" radius="78.0" stroke="BLACK" strokeType="INSIDE" />
+                <Label fx:id="customerLabel" alignment="CENTER" layoutX="180.0" layoutY="222.0" prefHeight="104.0" prefWidth="110.0" text="113+">
+                    <font>
+                        <Font name="System Bold" size="39.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="143.0" layoutY="367.0" prefHeight="18.0" prefWidth="190.0" text="Customer" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                </Label>
+                <Circle fill="#4ac2c2" layoutX="425.0" layoutY="275.0" radius="78.0" stroke="BLACK" strokeType="INSIDE" />
+                <Label fx:id="itemLabel" alignment="CENTER" layoutX="370.0" layoutY="222.0" prefHeight="104.0" prefWidth="110.0" text="113+">
+                    <font>
+                        <Font name="System Bold" size="39.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="333.0" layoutY="367.0" prefHeight="18.0" prefWidth="190.0" text="Item" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                </Label>
+                <Circle fill="#c24a4a" layoutX="615.0" layoutY="275.0" radius="78.0" stroke="BLACK" strokeType="INSIDE" />
+                <Label fx:id="supplierLabel" alignment="CENTER" layoutX="560.0" layoutY="222.0" prefHeight="104.0" prefWidth="110.0" text="113+">
+                    <font>
+                        <Font name="System Bold" size="39.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="523.0" layoutY="367.0" prefHeight="18.0" prefWidth="190.0" text="Supplier" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                </Label>
+                <Circle fill="#c1c24a" layoutX="805.0" layoutY="275.0" radius="78.0" stroke="BLACK" strokeType="INSIDE" />
+                <Label fx:id="employeeLabel" alignment="CENTER" layoutX="750.0" layoutY="222.0" prefHeight="104.0" prefWidth="110.0" text="113+">
+                    <font>
+                        <Font name="System Bold" size="39.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="713.0" layoutY="367.0" prefHeight="18.0" prefWidth="190.0" text="Employee" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+      <AnchorPane layoutX="263.0" layoutY="10.0" prefHeight="710.0" prefWidth="1146.0">
+         <children>
+            <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#836fff" height="677.0" layoutX="798.0" layoutY="19.0" stroke="BLACK" strokeType="INSIDE" width="328.0" />
+            <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#564f84" height="600.0" layoutX="12.0" layoutY="96.0" stroke="BLACK" strokeType="INSIDE" width="778.0" />
+            <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#836fff" height="70.0" layoutX="12.0" layoutY="19.0" stroke="BLACK" strokeType="INSIDE" width="778.0" />
+            <TextField fx:id="orderItemSearchBox" layoutX="50.0" layoutY="36.0" onAction="#orderItemSearchBoxBtn" prefHeight="36.0" prefWidth="328.0" promptText="Search Item ID" />
+            <Button layoutX="334.0" layoutY="39.0" mnemonicParsing="false" onAction="#orderSearchIconBtn" prefHeight="30.0" prefWidth="43.0" style="-fx-background-color: #ffffff; -fx-background-radius: 0;" text="🔍">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Label fx:id="orderCustomerNameLabel" alignment="CENTER" layoutX="394.0" layoutY="39.0" prefHeight="30.0" prefWidth="183.0" text="Mr.Pasindu" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="orderCustomerNameLabel1" layoutX="67.0" layoutY="132.0" prefHeight="20.0" prefWidth="120.0" text="Item Name" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="orderCodeText" editable="false" layoutX="67.0" layoutY="152.0" prefHeight="26.0" prefWidth="246.0" />
+            <Label fx:id="orderCustomerNameLabel11" layoutX="327.0" layoutY="132.0" prefHeight="20.0" prefWidth="120.0" text="Price" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="orderQtyText" layoutX="531.0" layoutY="152.0" onAction="#orderQtyTextAction" prefHeight="26.0" prefWidth="190.0" text="1" />
+            <Label fx:id="orderCustomerNameLabel111" layoutX="531.0" layoutY="132.0" prefHeight="20.0" prefWidth="120.0" text="Qty" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="orderPriceText" editable="false" layoutX="327.0" layoutY="152.0" prefHeight="26.0" prefWidth="190.0" />
+            <TableView fx:id="tblOrder" layoutX="27.0" layoutY="274.0" prefHeight="400.0" prefWidth="750.0">
+              <columns>
+                <TableColumn fx:id="colOrderCode" prefWidth="126.4000244140625" text="Code" />
+                <TableColumn fx:id="colOrderName" prefWidth="310.4000244140625" text="Name" />
+                  <TableColumn fx:id="colOrderQty" prefWidth="147.199951171875" text="Qty" />
+                  <TableColumn fx:id="colOrderPrice" prefWidth="156.800048828125" text="Price" />
+              </columns>
+            </TableView>
+            <Button layoutX="106.0" layoutY="204.0" onAction="#orderAddBtn" prefHeight="26.0" prefWidth="169.0" style="-fx-background-color: linear-gradient(to right, #00b09b, #96c93d); -fx-text-fill: white; -fx-background-radius: 10; -fx-font-weight: bold; -fx-cursor: hand;" text="Add" textFill="#fffcfc" />
+            <Button layoutX="321.0" layoutY="204.0" onAction="#orderUpdateBtn" prefHeight="26.0" prefWidth="170.0" style="-fx-background-color: linear-gradient(to right, #36d1dc, #5b86e5); -fx-text-fill: white; -fx-background-radius: 10; -fx-font-weight: bold; -fx-cursor: hand;" text="Update" textFill="#fffcfc" />
+            <Button layoutX="527.0" layoutY="204.0" onAction="#orderDeleteBtn" prefHeight="26.0" prefWidth="170.0" style="-fx-background-color: linear-gradient(to right, #ff4e50, #c31432); -fx-text-fill: white; -fx-background-radius: 10; -fx-font-weight: bold; -fx-cursor: hand;" text="Delete" textFill="#fffcfc" />
+            <Label layoutX="67.0" layoutY="101.0" prefHeight="30.0" prefWidth="284.0" text="COO1" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="808.0" layoutY="230.0" prefHeight="30.0" prefWidth="86.0" text="Subtotal">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Line endX="154.2000732421875" endY="7.62939453125E-6" layoutX="961.0" layoutY="280.0" startX="-153.0" startY="7.62939453125E-6" />
+            <Label layoutX="808.0" layoutY="297.0" prefHeight="30.0" prefWidth="120.0" text="Discount (2%)">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Line endX="154.2000732421875" endY="7.62939453125E-6" layoutX="961.0" layoutY="347.0" startX="-153.0" startY="7.62939453125E-6" />
+            <Label layoutX="808.0" layoutY="369.0" prefHeight="30.0" prefWidth="86.0" text="TOTAL" textFill="#9c2727">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Line endX="154.2000732421875" endY="7.62939453125E-6" layoutX="961.0" layoutY="419.0" startX="-153.0" startY="7.62939453125E-6" />
+            <Label fx:id="orderSubTotalText" alignment="TOP_RIGHT" layoutX="949.0" layoutY="230.0" prefHeight="30.0" prefWidth="157.0" text="Rs.0.00">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="orderDiscountText" alignment="TOP_RIGHT" layoutX="949.0" layoutY="297.0" prefHeight="30.0" prefWidth="157.0" text="Rs.0.00">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label alignment="TOP_RIGHT" layoutX="949.0" layoutY="369.0" prefHeight="30.0" prefWidth="157.0" text="Rs.0.00">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Line endX="154.2000732421875" endY="7.62939453125E-6" layoutX="961.0" layoutY="217.0" startX="-153.0" startY="7.62939453125E-6" />
+            <Label fx:id="OrderItemText" alignment="CENTER" layoutX="808.0" layoutY="165.0" prefHeight="30.0" prefWidth="308.0" text="0 Item" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="811.0" layoutY="448.0" prefHeight="30.0" prefWidth="177.0" text="💸 Customer Payout">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="OrderCustomerPayoutText" layoutX="810.0" layoutY="479.0" prefHeight="26.0" prefWidth="302.0" />
+            <Button layoutX="810.0" layoutY="534.0" onAction="#OrderComfirmBtn" prefHeight="36.0" prefWidth="302.0" style="-fx-background-color: linear-gradient(to right, #f9d423, #ff4e50); -fx-text-fill: white; -fx-background-radius: 10; -fx-font-weight: bold; -fx-cursor: hand;" text=" Confirm Order" />
+            <Label fx:id="OrderDateNow" alignment="TOP_RIGHT" layoutX="996.0" layoutY="54.0" prefHeight="30.0" prefWidth="120.0" text="2025-11-13" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="OrdeTimeNow" alignment="TOP_RIGHT" layoutX="1005.0" layoutY="81.0" prefHeight="30.0" prefWidth="110.0" text="12:45:30" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+    </children>
 </AnchorPane>
