@@ -23,6 +23,7 @@ public class DashBoardServiceContraller {
         }
     }
 
+    //Order Contraller------------------------------------------------------------------------------------------------------->
     //Add Customer
     public ObservableList<ItemDTO> addOrder(String code, int qty){
         if(searchDuplicate(code,qty)){
@@ -131,5 +132,22 @@ public class DashBoardServiceContraller {
             throw new RuntimeException(e);
         }
     }
+    //-------------------------------------------------------------------------------------------------------------->
+
+    //Login Contraller --------------------------------------------------------------------------------------------->
+    String[] usernameArray = {"pasindu", "tharindu", "lahiru", "navindu"};
+    String[] passwordArray = {"12345", "23456", "34567", "45678"};
+    public boolean checkLogin(String username, String password) {
+        for (int i = 0; i < usernameArray.length; i++) {
+            if (username.equals(usernameArray[i]) && password.equals(passwordArray[i])) {
+                return true;
+            }
+        }
+        return false;
+    }
+    //--------------------------------------------------------------------------------------------------------------->
+
+
+
 
 }

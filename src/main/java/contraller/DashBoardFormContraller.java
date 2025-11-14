@@ -7,14 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
@@ -45,6 +38,9 @@ public class DashBoardFormContraller implements Initializable {
 
     @FXML
     private AnchorPane accountPane;
+
+    @FXML
+    private AnchorPane orderPane;
 
     @FXML
     private Button btnCustomer;
@@ -242,33 +238,34 @@ public class DashBoardFormContraller implements Initializable {
 
     @FXML
     void btnCustomerAction(ActionEvent event) {
-//        itemPane.setVisible(false);
-//        customerPane.setVisible(true);
-//        accountPane.setVisible(false);
-//        btnCustomer.setStyle("-fx-background-color: #836fff; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
-//        btnHome.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
-//        btnItem.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
-//        txtTitle.getItems().clear();
+        itemPane.setVisible(false);
+        customerPane.setVisible(true);
+        accountPane.setVisible(false);
+        orderPane.setVisible(false);
+        btnCustomer.setStyle("-fx-background-color: #836fff; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
+        btnHome.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
+        btnItem.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
+        btnOrder.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
+        txtTitle.getItems().clear();
 //        txtTitle.getItems().addAll(titleArray);
-//        txtId.setText("");
-//        txtName.setText("");
-//        txtAddress.setText("");
-//        txtProvince.setText("");
-//        txtpostalCode.setText("");
-//        txtSalary.setText("");
-//        txtCity.setText("");
-//        txtDate.setValue(null);
-//        txtTitle.setValue(null);
-//
-//        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-//        colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
-//        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
-//        colDOB.setCellValueFactory(new PropertyValueFactory<>("dob"));
-//        colSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
-//        colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
-//        colCity.setCellValueFactory(new PropertyValueFactory<>("city"));
-//        colProvince.setCellValueFactory(new PropertyValueFactory<>("province"));
-//        colPostalCode.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+        txtId.setText("");
+        txtName.setText("");
+        txtAddress.setText("");
+        txtProvince.setText("");
+        txtpostalCode.setText("");
+        txtSalary.setText("");
+        txtCity.setText("");
+        txtDate.setValue(null);
+        txtTitle.setValue(null);
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colDOB.setCellValueFactory(new PropertyValueFactory<>("dob"));
+        colSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
+        colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        colCity.setCellValueFactory(new PropertyValueFactory<>("city"));
+        colProvince.setCellValueFactory(new PropertyValueFactory<>("province"));
+        colPostalCode.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
 //        tblCustomer.setItems(customerObservable);
 //
 //        tblCustomer.getSelectionModel().selectedItemProperty().addListener((observable,oldValue,newValue) ->{
@@ -344,27 +341,32 @@ public class DashBoardFormContraller implements Initializable {
 
     @FXML
     void btnLogOutAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnLoginAction(ActionEvent event) {
-
+        itemPane.setVisible(false);
+        customerPane.setVisible(false);
+        orderPane.setVisible(false);
+        loginPane.setVisible(true);
+        btnCustomer.setDisable(true);
+        btnItem.setDisable(true);
+        btnOrder.setDisable(true);
+        btnLogOut.setDisable(true);
+        accountPane.setVisible(false);
+        btnHome.setDisable(true);
+        btnCustomer.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
+        btnHome.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
+        btnOrder.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
+        btnItem.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
     }
 
     @FXML
     void btnOrderAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnpasswordAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnuserName(ActionEvent event) {
-
+        itemPane.setVisible(false);
+        customerPane.setVisible(false);
+        orderPane.setVisible(true);
+        accountPane.setVisible(false);
+        btnCustomer.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
+        btnHome.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
+        btnOrder.setStyle("-fx-background-color: #836fff; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
+        btnItem.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
     }
 
     @FXML
@@ -449,5 +451,46 @@ public class DashBoardFormContraller implements Initializable {
         orderFinalTotalText.setText("Rs."+String.format("%.2f", (total-(total*0.02))));
         OrderItemText.setText(dashBoardService.getItemQty()+" Item");
     }
+
+    //-----------------------------------------------Login form ------------------------------------------------>
+    @FXML
+    void btnLoginAction(ActionEvent event) {
+        if (dashBoardService.checkLogin(txtUserName.getText(),txtPassword.getText())){
+            loginPane.setVisible(false);
+            btnCustomer.setDisable(false);
+            btnItem.setDisable(false);
+            btnLogOut.setDisable(false);
+            btnHome.setDisable(false);
+            btnOrder.setDisable(false);
+            accountPane.setVisible(true);
+            changeNameLabel.setText("Hi "+txtUserName.getText());
+            txtUserName.clear();
+            txtPassword.clear();
+        }else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Login Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Username or password is incorrect.");
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
+    void btnpasswordAction(ActionEvent actionEvent) {
+        if (txtPassword.getText().isEmpty()) {
+            txtUserName.requestFocus();
+        } else {
+            btnLoginAction(actionEvent);
+        }
+    }
+
+    @FXML
+    void btnuserName(ActionEvent event) {
+        txtPassword.requestFocus();
+    }
+
+    //------------------------------------------------------------------------------------------------------------------>
+
+
 
 }
