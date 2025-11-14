@@ -11,9 +11,11 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import model.dto.CustomerDTO;
 import model.dto.ItemDTO;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -21,7 +23,7 @@ import java.util.ResourceBundle;
 
 public class DashBoardFormContraller implements Initializable {
 
-    String[] titleArray = {"Mr.","Mrs.","Miss"};
+    String[] titleArray = {"Mr","Mrs","Miss"};
     DashBoardServiceContraller dashBoardService = new DashBoardServiceContraller();
 
     @FXML
@@ -166,7 +168,7 @@ public class DashBoardFormContraller implements Initializable {
     private Label supplierLabel;
 
     @FXML
-    private TableView<?> tblCustomer;
+    private TableView<CustomerDTO> tblCustomer;
 
     @FXML
     private TableView<ItemDTO> tblItem;
@@ -217,7 +219,7 @@ public class DashBoardFormContraller implements Initializable {
     private TextField txtSalary;
 
     @FXML
-    private ChoiceBox<?> txtTitle;
+    private ChoiceBox<String> txtTitle;
 
     @FXML
     private TextField txtUserName;
@@ -230,6 +232,8 @@ public class DashBoardFormContraller implements Initializable {
 
     @FXML
     private Label orderIdtext;
+
+
 
     @FXML
     void OrderComfirmBtn(ActionEvent event) {
@@ -247,7 +251,7 @@ public class DashBoardFormContraller implements Initializable {
         btnItem.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
         btnOrder.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
         txtTitle.getItems().clear();
-//        txtTitle.getItems().addAll(titleArray);
+        txtTitle.getItems().addAll(titleArray);
         txtId.setText("");
         txtName.setText("");
         txtAddress.setText("");
@@ -266,27 +270,31 @@ public class DashBoardFormContraller implements Initializable {
         colCity.setCellValueFactory(new PropertyValueFactory<>("city"));
         colProvince.setCellValueFactory(new PropertyValueFactory<>("province"));
         colPostalCode.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
-//        tblCustomer.setItems(customerObservable);
-//
-//        tblCustomer.getSelectionModel().selectedItemProperty().addListener((observable,oldValue,newValue) ->{
-//            txtId.setText(newValue.getId());
-//            txtName.setText(newValue.getName());
-//            txtAddress.setText(newValue.getAddress());
-//            txtProvince.setText(newValue.getProvince());
-//            txtpostalCode.setText(newValue.getPostalCode());
-//            txtSalary.setText(String.valueOf(newValue.getSalary()));
-//            txtCity.setText(newValue.getCity());
-//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//            LocalDate localDate = LocalDate.parse(newValue.getDob(), formatter);
-//            txtDate.setValue(localDate);
-//            if (newValue.getTitle().equals("Mr.")){
-//                txtTitle.setValue(txtTitle.getItems().get(0));
-//            } else if (newValue.getTitle().equals("Mrs.")) {
-//                txtTitle.setValue(txtTitle.getItems().get(1));
-//            }else if (newValue.getTitle().equals("Miss.")){
-//                txtTitle.setValue(txtTitle.getItems().get(2));
-//            }
-//        });
+        try {
+            tblCustomer.setItems(dashBoardService.getAllCustomer());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        tblCustomer.getSelectionModel().selectedItemProperty().addListener((observable,oldValue,newValue) ->{
+            txtId.setText(newValue.getId());
+            txtName.setText(newValue.getName());
+            txtAddress.setText(newValue.getAddress());
+            txtProvince.setText(newValue.getProvince());
+            txtpostalCode.setText(newValue.getPostalCode());
+            txtSalary.setText(String.valueOf(newValue.getSalary()));
+            txtCity.setText(newValue.getCity());
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate localDate = LocalDate.parse(newValue.getDob(), formatter);
+            txtDate.setValue(localDate);
+            if (newValue.getTitle().equals("Mr")){
+                txtTitle.setValue(txtTitle.getItems().get(0));
+            } else if (newValue.getTitle().equals("Mrs")) {
+                txtTitle.setValue(txtTitle.getItems().get(1));
+            }else if (newValue.getTitle().equals("Miss")){
+                txtTitle.setValue(txtTitle.getItems().get(2));
+            }
+        });
     }
 
     @FXML

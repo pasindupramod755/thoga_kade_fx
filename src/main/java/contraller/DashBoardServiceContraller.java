@@ -3,6 +3,7 @@ package contraller;
 import dbConnection.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import model.dto.CustomerDTO;
 import model.dto.ItemDTO;
 
 import java.sql.Connection;
@@ -12,6 +13,7 @@ import java.sql.SQLException;
 
 public class DashBoardServiceContraller {
     ObservableList<ItemDTO> itemList = FXCollections.observableArrayList();
+    ObservableList<CustomerDTO> customerObservable = FXCollections.observableArrayList();
     Double orderPrice = 0.0;
 
     Connection connection;
@@ -135,6 +137,7 @@ public class DashBoardServiceContraller {
     //-------------------------------------------------------------------------------------------------------------->
 
     //Login Contraller --------------------------------------------------------------------------------------------->
+
     String[] usernameArray = {"pasindu", "tharindu", "lahiru", "navindu"};
     String[] passwordArray = {"12345", "23456", "34567", "45678"};
     public boolean checkLogin(String username, String password) {
@@ -146,6 +149,27 @@ public class DashBoardServiceContraller {
         return false;
     }
     //--------------------------------------------------------------------------------------------------------------->
+
+    //--------------------------------------Customer Contraller------------------------------------------------------->
+
+    public ObservableList<CustomerDTO> getAllCustomer() throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Customer");
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            customerObservable.add(new CustomerDTO(
+                    resultSet.getString("CustID"),
+                    resultSet.getString("CustTitle"),
+                    resultSet.getString("CustName"),
+                    resultSet.getString("DOB"),
+                    resultSet.getDouble("salary"),
+                    resultSet.getString("CustAddress"),
+                    resultSet.getString("City"),
+                    resultSet.getString("Province"),
+                    resultSet.getString("PostalCode")
+            ));
+        }
+        return customerObservable;
+    }
 
 
 
