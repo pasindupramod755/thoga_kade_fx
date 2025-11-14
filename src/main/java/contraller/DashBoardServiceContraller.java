@@ -24,7 +24,7 @@ public class DashBoardServiceContraller {
     }
 
     //Add Customer
-    public ObservableList<ItemDTO> addCustomer(String code,int qty){
+    public ObservableList<ItemDTO> addOrder(String code, int qty){
         if(searchDuplicate(code,qty)){
             try {
                 PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM item WHERE ItemCode = ?");
@@ -67,8 +67,6 @@ public class DashBoardServiceContraller {
     // Search duplicate
     public boolean searchDuplicate(String code, int qty) {
         for (ItemDTO item : itemList) {
-            System.out.println(item.getCode());
-            System.out.println(code);
             if (item.getCode().equals(code)) {
                 int newQty = item.getQtyOnHand() + qty;
                 item.setQtyOnHand(newQty);
@@ -78,6 +76,60 @@ public class DashBoardServiceContraller {
             }
         }
         return true;
+    }
+
+    //delete order
+    public ObservableList<ItemDTO> deleteOrder(String code){
+        for (int i = 0; i < itemList.size(); i++) {
+            if (itemList.get(i).getCode().equals(code)) {
+                itemList.remove(i);
+                i--;
+            }
+        }
+        return itemList;
+    }
+
+    //search
+    public ItemDTO searchItem(String code){
+        for (ItemDTO item : itemList) {
+            if (item.getCode().equals(code)) {
+                return item;
+            }
+        }
+        return null;
+    }
+
+    //update order
+    public ObservableList<ItemDTO> updateOrder(String code, int qty){
+        ItemDTO itemDTO = searchItem(code);
+        if (itemDTO != null) {
+            itemDTO.setQtyOnHand(qty);
+            itemDTO.setTotalPrice(itemDTO.getUnitPrice() * qty);
+        }
+        return itemList;
+    }
+
+    //searchOrderDatabase
+    public ItemDTO searchItemDatabase(String code ){
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM item WHERE ItemCode = ?");
+            preparedStatement.setString(1,code);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            ItemDTO itemDTO = null;
+            while (resultSet.next()){
+                itemDTO = new ItemDTO(
+                        resultSet.getString("ItemCode"),
+                        resultSet.getString("Description"),
+                        resultSet.getString("PackSize"),
+                        resultSet.getDouble("UnitPrice"),
+                        resultSet.getInt("qtyOnHand"),
+                        resultSet.getDouble("UnitPrice")
+                );
+            }
+            return itemDTO;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
