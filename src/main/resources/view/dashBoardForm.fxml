@@ -60,7 +60,7 @@
                         <Font name="System Bold" size="18.0" />
                     </font>
                 </Label>
-                <TextField fx:id="txtId" layoutX="154.0" layoutY="431.0" prefHeight="26.0" prefWidth="222.0" />
+                <TextField fx:id="txtId" editable="false" layoutX="154.0" layoutY="431.0" prefHeight="26.0" prefWidth="222.0" />
                 <ChoiceBox fx:id="txtTitle" layoutX="154.0" layoutY="495.0" prefHeight="26.0" prefWidth="222.0" />
                 <TextField fx:id="txtName" layoutX="470.0" layoutY="431.0" prefHeight="26.0" prefWidth="216.0" />
                 <DatePicker fx:id="txtDate" layoutX="786.0" layoutY="431.0" prefHeight="26.0" prefWidth="216.0" />

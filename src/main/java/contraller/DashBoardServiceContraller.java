@@ -3,6 +3,8 @@ package contraller;
 import dbConnection.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.Cursor;
+import javafx.scene.control.Alert;
 import model.dto.CustomerDTO;
 import model.dto.ItemDTO;
 
@@ -170,6 +172,54 @@ public class DashBoardServiceContraller {
         }
         return customerObservable;
     }
+
+    public boolean addCustomer(CustomerDTO customer) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Customer VALUES (?,?,?,?,?,?,?,?,?)");
+        preparedStatement.setString(1, customer.getId());
+        preparedStatement.setString(2, customer.getTitle());
+        preparedStatement.setString(3, customer.getName());
+        preparedStatement.setString(4, customer.getDob());
+        preparedStatement.setDouble(5, customer.getSalary());
+        preparedStatement.setString(6, customer.getAddress());
+        preparedStatement.setString(7, customer.getCity());
+        preparedStatement.setString(8, customer.getProvince());
+        preparedStatement.setString(9, customer.getPostalCode());
+        int i = preparedStatement.executeUpdate();
+        return i>0;
+    }
+
+    public void addCustomerObservable(CustomerDTO customer){
+        customerObservable.add(customer);
+    }
+
+    public boolean deleteCustomer(String id) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM Customer WHERE CustID = ?");
+        preparedStatement.setString(1,id);
+        int i = preparedStatement.executeUpdate();
+        return i>0;
+    }
+
+    public void deleteCustomerObservable(CustomerDTO customer){
+        customerObservable.remove(customer);
+    }
+
+    public boolean updateCustomer(CustomerDTO customer) throws SQLException {
+        String sql = "UPDATE Customer SET CustTitle=?, CustName=?, DOB=?, salary=?, CustAddress=?, City=?, Province=?, PostalCode=? WHERE CustID=?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(9, customer.getId());
+        preparedStatement.setString(1, customer.getTitle());
+        preparedStatement.setString(2, customer.getName());
+        preparedStatement.setString(3, customer.getDob());
+        preparedStatement.setDouble(4, customer.getSalary());
+        preparedStatement.setString(5, customer.getAddress());
+        preparedStatement.setString(6, customer.getCity());
+        preparedStatement.setString(7, customer.getProvince());
+        preparedStatement.setString(8, customer.getPostalCode());
+        int i = preparedStatement.executeUpdate();
+        return i>0;
+    }
+
+
 
 
 

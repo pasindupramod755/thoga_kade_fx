@@ -275,7 +275,6 @@ public class DashBoardFormContraller implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
         tblCustomer.getSelectionModel().selectedItemProperty().addListener((observable,oldValue,newValue) ->{
             txtId.setText(newValue.getId());
             txtName.setText(newValue.getName());
@@ -299,12 +298,56 @@ public class DashBoardFormContraller implements Initializable {
 
     @FXML
     void btnCustomerAddAction(ActionEvent event) {
+        if (
+                txtId.getText().isEmpty() ||
+                        txtTitle.getValue() == null ||
+                        txtName.getText().isEmpty() ||
+                        txtDate.getValue() == null ||
+                        txtSalary.getText().isEmpty() ||
+                        txtCity.getText().isEmpty() ||
+                        txtProvince.getText().isEmpty() ||
+                        txtpostalCode.getText().isEmpty() ||
+                        txtAddress.getText().isEmpty()
+        ) {
+            new Alert(Alert.AlertType.WARNING, "Please fill all fields before proceeding!").show();
+        }else {
+            CustomerDTO customer = new CustomerDTO(
+                    txtId.getText(),
+                    txtTitle.getValue(),
+                    txtName.getText(),
+                    String.valueOf(txtDate.getValue()),
+                    Double.parseDouble(txtSalary.getText()),
+                    txtAddress.getText(),
+                    txtCity.getText(),
+                    txtProvince.getText(),
+                    txtpostalCode.getText()
+            );
+            try {
+                if (dashBoardService.addCustomer(customer)){
+                    new Alert(Alert.AlertType.INFORMATION, "Customer Added successfully!").show();
+                    dashBoardService.addCustomerObservable(customer);
+                    tblCustomer.refresh();
+                }else{
+                    new Alert(Alert.AlertType.WARNING, "Customer not found!").show();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
+            }
 
+        }
     }
 
     @FXML
     void btnCustomerDeleteAction(ActionEvent event) {
-
+        try {
+            if (dashBoardService.deleteCustomer(tblCustomer.getSelectionModel().getSelectedItem().getId())){
+                new Alert(Alert.AlertType.INFORMATION, "Customer Deleted successfully!").show();
+                dashBoardService.deleteCustomerObservable(tblCustomer.getSelectionModel().getSelectedItem());
+                tblCustomer.refresh();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
@@ -314,7 +357,42 @@ public class DashBoardFormContraller implements Initializable {
 
     @FXML
     void btnCustomerUpdateAction(ActionEvent event) {
+        if (
+                txtId.getText().isEmpty() ||
+                        txtTitle.getValue() == null ||
+                        txtName.getText().isEmpty() ||
+                        txtDate.getValue() == null ||
+                        txtSalary.getText().isEmpty() ||
+                        txtCity.getText().isEmpty() ||
+                        txtProvince.getText().isEmpty() ||
+                        txtpostalCode.getText().isEmpty() ||
+                        txtAddress.getText().isEmpty()
+        ) {
+            new Alert(Alert.AlertType.WARNING, "Please fill all fields before proceeding!").show();
+        }else{
+            CustomerDTO customer = new CustomerDTO(
+                    txtId.getText(),
+                    txtTitle.getValue(),
+                    txtName.getText(),
+                    String.valueOf(txtDate.getValue()),
+                    Double.parseDouble(txtSalary.getText()),
+                    txtAddress.getText(),
+                    txtCity.getText(),
+                    txtProvince.getText(),
+                    txtpostalCode.getText()
+            );
+            try {
+                if (dashBoardService.updateCustomer(customer)){
+                    new Alert(Alert.AlertType.INFORMATION, "Customer updated successfully!").show();
 
+                    tblCustomer.refresh();
+                }else {
+                    new Alert(Alert.AlertType.WARNING, "Customer not found!").show();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     @FXML
