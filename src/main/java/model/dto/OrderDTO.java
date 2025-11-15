@@ -7,11 +7,11 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class ItemDTO {
+public class OrderDTO {
     private String code;
     private String description;
     private String category;
     private double unitPrice;
     private int qtyOnHand;
-
+    private double totalPrice;
 }

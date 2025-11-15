@@ -13,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import model.dto.CustomerDTO;
 import model.dto.ItemDTO;
+import model.dto.OrderDTO;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -174,7 +175,7 @@ public class DashBoardFormContraller implements Initializable {
     private TableView<ItemDTO> tblItem;
 
     @FXML
-    private TableView<ItemDTO> tblOrder;
+    private TableView<OrderDTO> tblOrder;
 
     @FXML
     private TableColumn<?, ?> colOrderTotalPrice;
@@ -401,7 +402,29 @@ public class DashBoardFormContraller implements Initializable {
 
     @FXML
     void btnItemAction(ActionEvent event) {
-
+        itemPane.setVisible(true);
+        customerPane.setVisible(false);
+        orderPane.setVisible(false);
+        accountPane.setVisible(false);
+        btnCustomer.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
+        btnHome.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
+        btnItem.setStyle("-fx-background-color: #836fff; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
+        btnOrder.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
+        txtCode1.setText("");
+        txtDescription1.setText("");
+        txtCategory1.setText("");
+        txtQty1.setText("");
+        txtPrice1.setText("");
+        try {
+            colCode1.setCellValueFactory(new PropertyValueFactory<>("code"));
+            colDescription1.setCellValueFactory(new PropertyValueFactory<>("description"));
+            colCategory1.setCellValueFactory(new PropertyValueFactory<>("category"));
+            colQty1.setCellValueFactory(new PropertyValueFactory<>("qtyOnHand"));
+            colPrice1.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
+            tblItem.setItems(dashBoardService.getAllItem());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
@@ -456,8 +479,8 @@ public class DashBoardFormContraller implements Initializable {
 
     @FXML
     void orderAddBtn(ActionEvent event) {
-        ObservableList<ItemDTO> itemDTOS = dashBoardService.addOrder(orderItemSearchBox.getText(), Integer.parseInt(orderQtyText.getText()));
-        setTable(itemDTOS);
+        ObservableList<OrderDTO> orderDTOS = dashBoardService.addOrder(orderItemSearchBox.getText(), Integer.parseInt(orderQtyText.getText()));
+        setTable(orderDTOS);
         setTotal();
         orderIdtext.setText(orderItemSearchBox.getText());
         tblOrder.getSelectionModel().selectedItemProperty().addListener((observable ,oldValue , newValue)->{
@@ -472,8 +495,8 @@ public class DashBoardFormContraller implements Initializable {
 
     @FXML
     void orderDeleteBtn(ActionEvent event) {
-        ObservableList<ItemDTO> itemDTOS = dashBoardService.deleteOrder(tblOrder.getSelectionModel().getSelectedItem().getCode());
-        setTable(itemDTOS);
+        ObservableList<OrderDTO> orderDTOS = dashBoardService.deleteOrder(tblOrder.getSelectionModel().getSelectedItem().getCode());
+        setTable(orderDTOS);
         setTotal();
     }
 
@@ -489,16 +512,16 @@ public class DashBoardFormContraller implements Initializable {
 
     @FXML
     void orderSearchIconBtn(ActionEvent event) {
-        ItemDTO itemDTO = dashBoardService.searchItemDatabase(orderItemSearchBox.getText());
-        orderCodeText.setText(itemDTO.getDescription());
-        orderPriceText.setText(String.valueOf(itemDTO.getUnitPrice()));
+        OrderDTO orderDTO = dashBoardService.searchItemDatabase(orderItemSearchBox.getText());
+        orderCodeText.setText(orderDTO.getDescription());
+        orderPriceText.setText(String.valueOf(orderDTO.getUnitPrice()));
         orderIdtext.setText(orderItemSearchBox.getText());
     }
 
     @FXML
     void orderUpdateBtn(ActionEvent event) {
-        ObservableList<ItemDTO> itemDTOS = dashBoardService.updateOrder(orderIdtext.getText(), Integer.parseInt(orderQtyText.getText()));
-        setTable(itemDTOS);
+        ObservableList<OrderDTO> orderDTOS = dashBoardService.updateOrder(orderIdtext.getText(), Integer.parseInt(orderQtyText.getText()));
+        setTable(orderDTOS);
         setTotal();
     }
 
@@ -519,13 +542,13 @@ public class DashBoardFormContraller implements Initializable {
         clock.play();
     }
 
-    public void setTable(ObservableList<ItemDTO> itemDTOS){
+    public void setTable(ObservableList<OrderDTO> orderDTOS){
         colOrderCode.setCellValueFactory(new PropertyValueFactory<>("code"));
         colOrderName.setCellValueFactory(new PropertyValueFactory<>("description"));
         colOrderQty.setCellValueFactory(new PropertyValueFactory<>("qtyOnHand"));
         colOrderPrice.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
         colOrderTotalPrice.setCellValueFactory(new PropertyValueFactory<>("totalPrice"));
-        tblOrder.setItems(itemDTOS);
+        tblOrder.setItems(orderDTOS);
         tblOrder.refresh();
     }
 

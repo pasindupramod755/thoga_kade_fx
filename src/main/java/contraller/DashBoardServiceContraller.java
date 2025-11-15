@@ -3,10 +3,9 @@ package contraller;
 import dbConnection.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Cursor;
-import javafx.scene.control.Alert;
 import model.dto.CustomerDTO;
 import model.dto.ItemDTO;
+import model.dto.OrderDTO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,7 +13,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DashBoardServiceContraller {
-    ObservableList<ItemDTO> itemList = FXCollections.observableArrayList();
+    ObservableList<OrderDTO> orderObservable = FXCollections.observableArrayList();
+    ObservableList<ItemDTO> itemObservable = FXCollections.observableArrayList();
     ObservableList<CustomerDTO> customerObservable = FXCollections.observableArrayList();
     Double orderPrice = 0.0;
 
@@ -29,15 +29,15 @@ public class DashBoardServiceContraller {
 
     //Order Contraller------------------------------------------------------------------------------------------------------->
     //Add Customer
-    public ObservableList<ItemDTO> addOrder(String code, int qty){
+    public ObservableList<OrderDTO> addOrder(String code, int qty){
         if(searchDuplicate(code,qty)){
             try {
                 PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM item WHERE ItemCode = ?");
                 preparedStatement.setString(1,code);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()){
-                    itemList.add(
-                            new ItemDTO(
+                    orderObservable.add(
+                            new OrderDTO(
                                     resultSet.getString("ItemCode"),
                                     resultSet.getString("Description"),
                                     resultSet.getString("PackSize"),
@@ -52,26 +52,26 @@ public class DashBoardServiceContraller {
                 throw new RuntimeException(e);
             }
         }
-        return itemList;
+        return orderObservable;
     }
 
     //Total price
     public Double getTotal(){
         orderPrice=0.0;
-        for (ItemDTO itemDTO : itemList) {
-            orderPrice+=itemDTO.getTotalPrice();
+        for (OrderDTO orderDTO : orderObservable) {
+            orderPrice+= orderDTO.getTotalPrice();
         }
         return orderPrice;
     }
 
     //Get Itom Qty
     public int getItemQty(){
-        return itemList.size();
+        return orderObservable.size();
     }
 
     // Search duplicate
     public boolean searchDuplicate(String code, int qty) {
-        for (ItemDTO item : itemList) {
+        for (OrderDTO item : orderObservable) {
             if (item.getCode().equals(code)) {
                 int newQty = item.getQtyOnHand() + qty;
                 item.setQtyOnHand(newQty);
@@ -84,19 +84,19 @@ public class DashBoardServiceContraller {
     }
 
     //delete order
-    public ObservableList<ItemDTO> deleteOrder(String code){
-        for (int i = 0; i < itemList.size(); i++) {
-            if (itemList.get(i).getCode().equals(code)) {
-                itemList.remove(i);
+    public ObservableList<OrderDTO> deleteOrder(String code){
+        for (int i = 0; i < orderObservable.size(); i++) {
+            if (orderObservable.get(i).getCode().equals(code)) {
+                orderObservable.remove(i);
                 i--;
             }
         }
-        return itemList;
+        return orderObservable;
     }
 
     //search
-    public ItemDTO searchItem(String code){
-        for (ItemDTO item : itemList) {
+    public OrderDTO searchItem(String code){
+        for (OrderDTO item : orderObservable) {
             if (item.getCode().equals(code)) {
                 return item;
             }
@@ -105,24 +105,24 @@ public class DashBoardServiceContraller {
     }
 
     //update order
-    public ObservableList<ItemDTO> updateOrder(String code, int qty){
-        ItemDTO itemDTO = searchItem(code);
-        if (itemDTO != null) {
-            itemDTO.setQtyOnHand(qty);
-            itemDTO.setTotalPrice(itemDTO.getUnitPrice() * qty);
+    public ObservableList<OrderDTO> updateOrder(String code, int qty){
+        OrderDTO orderDTO = searchItem(code);
+        if (orderDTO != null) {
+            orderDTO.setQtyOnHand(qty);
+            orderDTO.setTotalPrice(orderDTO.getUnitPrice() * qty);
         }
-        return itemList;
+        return orderObservable;
     }
 
     //searchOrderDatabase
-    public ItemDTO searchItemDatabase(String code ){
+    public OrderDTO searchItemDatabase(String code ){
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM item WHERE ItemCode = ?");
             preparedStatement.setString(1,code);
             ResultSet resultSet = preparedStatement.executeQuery();
-            ItemDTO itemDTO = null;
+            OrderDTO orderDTO = null;
             while (resultSet.next()){
-                itemDTO = new ItemDTO(
+                orderDTO = new OrderDTO(
                         resultSet.getString("ItemCode"),
                         resultSet.getString("Description"),
                         resultSet.getString("PackSize"),
@@ -131,7 +131,7 @@ public class DashBoardServiceContraller {
                         resultSet.getDouble("UnitPrice")
                 );
             }
-            return itemDTO;
+            return orderDTO;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -241,9 +241,23 @@ public class DashBoardServiceContraller {
         return false;
     }
 
+    //--------------------------------------------------------------------------------------------------------------->
 
-
-
+    //----------------------------------------Item Contraller-------------------------------------------------------->
+    public ObservableList<ItemDTO> getAllItem() throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM item");
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            itemObservable.add(new ItemDTO(
+                    resultSet.getString("ItemCode"),
+                    resultSet.getString("Description"),
+                    resultSet.getString("PackSize"),
+                    resultSet.getDouble("UnitPrice"),
+                    resultSet.getInt("QtyOnHand")
+            ));
+        }
+        return itemObservable;
+    }
 
 
 
