@@ -301,4 +301,32 @@ public class DashBoardServiceContraller {
             throw new RuntimeException(e);
         }
     }
+
+    public void updateItem(ItemDTO item) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Item SET Description=?, PackSize=?, QtyOnHand=?, UnitPrice=? WHERE ItemCode=?");
+            preparedStatement.setString(1, item.getDescription());
+            preparedStatement.setString(2, item.getCategory());
+            preparedStatement.setInt(3, item.getQtyOnHand());
+            preparedStatement.setDouble(4, item.getUnitPrice());
+            preparedStatement.setString(5, item.getCode());
+            int i = preparedStatement.executeUpdate();
+            if (i > 0) {
+                new Alert(Alert.AlertType.INFORMATION, "Item Update successfully!").show();
+                for (ItemDTO itemDTO : itemObservable){
+                    if ((item.getCode()).equals((itemDTO.getCode()))){
+                        itemDTO.setDescription(item.getDescription());
+                        itemDTO.setCategory(item.getCategory());
+                        itemDTO.setQtyOnHand(item.getQtyOnHand());
+                        itemDTO.setUnitPrice(item.getUnitPrice());
+                    }
+                }
+            } else {
+                new Alert(Alert.AlertType.WARNING, "Item not found!").show();
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
+            throw new RuntimeException(e);
+        }
+    }
 }

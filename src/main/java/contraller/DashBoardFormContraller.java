@@ -351,7 +351,15 @@ public class DashBoardFormContraller implements Initializable {
 
     @FXML
     void btnCustomerResetAction(ActionEvent event) {
-
+        txtId.setText("");
+        txtName.setText("");
+        txtAddress.setText("");
+        txtProvince.setText("");
+        txtpostalCode.setText("");
+        txtSalary.setText("");
+        txtCity.setText("");
+        txtDate.setValue(null);
+        txtTitle.setValue(null);
     }
 
     @FXML
@@ -453,12 +461,24 @@ public class DashBoardFormContraller implements Initializable {
 
     @FXML
     void btnItemResetAction(ActionEvent event) {
-
+        txtCode1.setText("");
+        txtDescription1.setText("");
+        txtCategory1.setText("");
+        txtQty1.setText("");
+        txtPrice1.setText("");
     }
 
     @FXML
     void btnItemUpdateAction(ActionEvent event) {
-
+        ItemDTO item = new ItemDTO(
+            txtCode1.getText(),
+            txtDescription1.getText(),
+            txtCategory1.getText(),
+            Double.parseDouble(txtPrice1.getText()),
+            Integer.parseInt(txtQty1.getText())
+        );
+        dashBoardService.updateItem(item);
+        tblItem.refresh();
     }
 
     @FXML
