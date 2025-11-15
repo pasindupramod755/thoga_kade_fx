@@ -326,7 +326,6 @@ public class DashBoardFormContraller implements Initializable {
             try {
                 if (dashBoardService.addCustomer(customer)){
                     new Alert(Alert.AlertType.INFORMATION, "Customer Added successfully!").show();
-                    dashBoardService.addCustomerObservable(customer);
                     tblCustomer.refresh();
                 }else{
                     new Alert(Alert.AlertType.WARNING, "Customer not found!").show();
@@ -343,7 +342,6 @@ public class DashBoardFormContraller implements Initializable {
         try {
             if (dashBoardService.deleteCustomer(tblCustomer.getSelectionModel().getSelectedItem().getId())){
                 new Alert(Alert.AlertType.INFORMATION, "Customer Deleted successfully!").show();
-                dashBoardService.deleteCustomerObservable(tblCustomer.getSelectionModel().getSelectedItem());
                 tblCustomer.refresh();
             }
         } catch (SQLException e) {
@@ -422,6 +420,13 @@ public class DashBoardFormContraller implements Initializable {
             colQty1.setCellValueFactory(new PropertyValueFactory<>("qtyOnHand"));
             colPrice1.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
             tblItem.setItems(dashBoardService.getAllItem());
+            tblItem.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                txtCode1.setText(newValue.getCode());
+                txtDescription1.setText(newValue.getDescription());
+                txtCategory1.setText(newValue.getCategory());
+                txtPrice1.setText(String.valueOf(newValue.getUnitPrice()));
+                txtQty1.setText(String.valueOf(newValue.getQtyOnHand()));
+            });
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -429,12 +434,21 @@ public class DashBoardFormContraller implements Initializable {
 
     @FXML
     void btnItemAddAction(ActionEvent event) {
+        ItemDTO item = new ItemDTO(
+                txtCode1.getText(),
+                txtDescription1.getText(),
+                txtCategory1.getText(),
+                Double.parseDouble(txtPrice1.getText()),
+                Integer.parseInt(txtQty1.getText())
+        );
+        dashBoardService.addItem(item);
 
     }
 
     @FXML
     void btnItemDeleteAction(ActionEvent event) {
-
+        dashBoardService.deleteItem(tblItem.getSelectionModel().getSelectedItem());
+        tblItem.refresh();
     }
 
     @FXML

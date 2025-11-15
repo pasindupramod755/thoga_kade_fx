@@ -3,6 +3,7 @@ package contraller;
 import dbConnection.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 import model.dto.CustomerDTO;
 import model.dto.ItemDTO;
 import model.dto.OrderDTO;
@@ -156,6 +157,7 @@ public class DashBoardServiceContraller {
     public ObservableList<CustomerDTO> getAllCustomer() throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Customer");
         ResultSet resultSet = preparedStatement.executeQuery();
+        customerObservable.clear();
         while (resultSet.next()) {
             customerObservable.add(new CustomerDTO(
                     resultSet.getString("CustID"),
@@ -184,11 +186,11 @@ public class DashBoardServiceContraller {
         preparedStatement.setString(8, customer.getProvince());
         preparedStatement.setString(9, customer.getPostalCode());
         int i = preparedStatement.executeUpdate();
-        return i>0;
-    }
-
-    public void addCustomerObservable(CustomerDTO customer){
-        customerObservable.add(customer);
+        if (i>0){
+            customerObservable.add(customer);
+            return true;
+        }
+        return false;
     }
 
     public boolean deleteCustomer(String id) throws SQLException {
@@ -204,10 +206,6 @@ public class DashBoardServiceContraller {
            return true;
         }
         return false;
-    }
-
-    public void deleteCustomerObservable(CustomerDTO customer){
-        customerObservable.remove(customer);
     }
 
     public boolean updateCustomer(CustomerDTO customer) throws SQLException {
@@ -247,6 +245,7 @@ public class DashBoardServiceContraller {
     public ObservableList<ItemDTO> getAllItem() throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM item");
         ResultSet resultSet = preparedStatement.executeQuery();
+        itemObservable.clear();
         while (resultSet.next()) {
             itemObservable.add(new ItemDTO(
                     resultSet.getString("ItemCode"),
@@ -259,6 +258,47 @@ public class DashBoardServiceContraller {
         return itemObservable;
     }
 
+    public void addItem(ItemDTO item) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Item VALUES (?,?,?,?,?)");
+            preparedStatement.setString(1, item.getCode());
+            preparedStatement.setString(2, item.getDescription());
+            preparedStatement.setString(3, item.getCategory());
+            preparedStatement.setInt(4, item.getQtyOnHand());
+            preparedStatement.setDouble(5, item.getUnitPrice());
+            int i = preparedStatement.executeUpdate();
+            if (i > 0) {
+                new Alert(Alert.AlertType.INFORMATION, "Supplier Added successfully!").show();
+                itemObservable.add(item);
+            } else {
+                new Alert(Alert.AlertType.WARNING, "Supplier not found!").show();
+            }
+
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
+            throw new RuntimeException(e);
+        }
+    }
 
 
+    public void deleteItem(ItemDTO item) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM Item WHERE ItemCode = ?");
+            preparedStatement.setString(1, item.getCode());
+            int i = preparedStatement.executeUpdate();
+            if (i > 0) {
+                new Alert(Alert.AlertType.INFORMATION, "Item Deleted successfully!").show();
+                for (ItemDTO itemDTO : itemObservable){
+                    if ((itemDTO.getCode()).equals((item.getCode()))){
+                        itemObservable.remove(itemDTO);
+                    }
+                }
+            } else {
+                new Alert(Alert.AlertType.WARNING, "Item not found!").show();
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
+            throw new RuntimeException(e);
+        }
+    }
 }
