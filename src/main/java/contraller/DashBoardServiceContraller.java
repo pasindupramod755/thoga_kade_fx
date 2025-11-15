@@ -139,7 +139,6 @@ public class DashBoardServiceContraller {
     //-------------------------------------------------------------------------------------------------------------->
 
     //Login Contraller --------------------------------------------------------------------------------------------->
-
     String[] usernameArray = {"pasindu", "tharindu", "lahiru", "navindu"};
     String[] passwordArray = {"12345", "23456", "34567", "45678"};
     public boolean checkLogin(String username, String password) {
@@ -196,7 +195,15 @@ public class DashBoardServiceContraller {
         PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM Customer WHERE CustID = ?");
         preparedStatement.setString(1,id);
         int i = preparedStatement.executeUpdate();
-        return i>0;
+        if (i>0){
+            for (CustomerDTO customerDTO : customerObservable){
+                if ((customerDTO.getId()).equals(id)){
+                    customerObservable.remove(customerDTO);
+                }
+            }
+           return true;
+        }
+        return false;
     }
 
     public void deleteCustomerObservable(CustomerDTO customer){
@@ -215,9 +222,25 @@ public class DashBoardServiceContraller {
         preparedStatement.setString(6, customer.getCity());
         preparedStatement.setString(7, customer.getProvince());
         preparedStatement.setString(8, customer.getPostalCode());
-        int i = preparedStatement.executeUpdate();
-        return i>0;
+        int count = preparedStatement.executeUpdate();
+        if(count>0){
+            for (CustomerDTO customerDTO : customerObservable){
+                if ((customerDTO.getId()).equals((customer.getId()))){
+                    customerDTO.setTitle(customer.getTitle());
+                    customerDTO.setName(customer.getName());
+                    customerDTO.setDob(customer.getDob());
+                    customerDTO.setSalary(customer.getSalary());
+                    customerDTO.setAddress(customer.getAddress());
+                    customerDTO.setCity(customer.getCity());
+                    customerDTO.setProvince(customer.getProvince());
+                    customerDTO.setPostalCode(customer.getPostalCode());
+                }
+            }
+            return true;
+        }
+        return false;
     }
+
 
 
 

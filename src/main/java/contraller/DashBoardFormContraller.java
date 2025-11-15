@@ -384,7 +384,6 @@ public class DashBoardFormContraller implements Initializable {
             try {
                 if (dashBoardService.updateCustomer(customer)){
                     new Alert(Alert.AlertType.INFORMATION, "Customer updated successfully!").show();
-
                     tblCustomer.refresh();
                 }else {
                     new Alert(Alert.AlertType.WARNING, "Customer not found!").show();
