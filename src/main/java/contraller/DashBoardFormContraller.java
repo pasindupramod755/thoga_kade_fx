@@ -20,6 +20,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class DashBoardFormContraller implements Initializable {
@@ -507,21 +508,35 @@ public class DashBoardFormContraller implements Initializable {
 
     @FXML
     void btnLogOutAction(ActionEvent event) {
-        itemPane.setVisible(false);
-        customerPane.setVisible(false);
-        orderPane.setVisible(false);
-        loginPane.setVisible(true);
-        btnCustomer.setDisable(true);
-        btnItem.setDisable(true);
-        btnOrder.setDisable(true);
-        btnLogOut.setDisable(true);
-        accountPane.setVisible(false);
-        btnHome.setDisable(true);
-        orderCustomerPane.setVisible(false);
-        btnCustomer.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
-        btnHome.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
-        btnOrder.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
-        btnItem.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Logout");
+        alert.setHeaderText("Are you sure you want to logout?");
+        alert.setContentText("You will be returned to the login screen.");
+
+        ButtonType yes = new ButtonType("Yes");
+        ButtonType no = new ButtonType("No");
+
+        alert.getButtonTypes().setAll(yes, no);
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.isPresent() && result.get() == yes) {
+            itemPane.setVisible(false);
+            customerPane.setVisible(false);
+            orderPane.setVisible(false);
+            loginPane.setVisible(true);
+            btnCustomer.setDisable(true);
+            btnItem.setDisable(true);
+            btnOrder.setDisable(true);
+            btnLogOut.setDisable(true);
+            accountPane.setVisible(false);
+            btnHome.setDisable(true);
+            orderCustomerPane.setVisible(false);
+            btnCustomer.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
+            btnHome.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
+            btnOrder.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
+            btnItem.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
+        }
     }
 
     @FXML
@@ -685,13 +700,27 @@ public class DashBoardFormContraller implements Initializable {
 
     @FXML
     void OrderCancelBtn(ActionEvent event) {
-        btnCustomer.setDisable(false);
-        btnItem.setDisable(false);
-        btnLogOut.setDisable(false);
-        btnHome.setDisable(false);
-        btnOrder.setDisable(false);
-        orderPane.setVisible(false);
-        orderCustomerPane.setVisible(true);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Cancel Order");
+        alert.setHeaderText("Are you sure you want to cancel this order?");
+        alert.setContentText("This action cannot be undone.");
+
+        ButtonType yes = new ButtonType("Yes");
+        ButtonType no = new ButtonType("No");
+
+        alert.getButtonTypes().setAll(yes, no);
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.isPresent() && result.get() == yes) {
+            btnCustomer.setDisable(false);
+            btnItem.setDisable(false);
+            btnLogOut.setDisable(false);
+            btnHome.setDisable(false);
+            btnOrder.setDisable(false);
+            orderPane.setVisible(false);
+            orderCustomerPane.setVisible(true);
+        }
     }
 
 

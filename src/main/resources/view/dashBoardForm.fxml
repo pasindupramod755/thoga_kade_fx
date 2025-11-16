@@ -309,7 +309,7 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Button layoutX="964.0" layoutY="474.0" onAction="#OrderComfirmBtn" prefHeight="36.0" prefWidth="146.0" style="-fx-background-color: linear-gradient(to right, #f9d423, #ff4e50); -fx-text-fill: white; -fx-background-radius: 10; -fx-font-weight: bold; -fx-cursor: hand;" text=" Confirm Order" />
+            <Button layoutX="964.0" layoutY="529.0" onAction="#OrderComfirmBtn" prefHeight="36.0" prefWidth="146.0" style="-fx-background-color: linear-gradient(to right, #f9d423, #ff4e50); -fx-text-fill: white; -fx-background-radius: 10; -fx-font-weight: bold; -fx-cursor: hand;" text=" Confirm Order" />
             <Label fx:id="OrderDateNow" alignment="TOP_RIGHT" layoutX="996.0" layoutY="54.0" prefHeight="30.0" prefWidth="120.0" text="2025-11-13" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
@@ -325,17 +325,13 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Button layoutX="813.0" layoutY="474.0" onAction="#OrderCancelBtn" prefHeight="36.0" prefWidth="146.0" style="-fx-background-color: linear-gradient(to right, #ff4e50, #c31432); -fx-text-fill: white; -fx-background-radius: 10; -fx-font-weight: bold; -fx-cursor: hand;" text="Cancel" textFill="#fffcfc" />
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="314.0" layoutY="102.0" prefHeight="534.0" prefWidth="1046.0" visible="false">
-         <children>
-            <Label layoutX="50.0" layoutY="43.0" prefHeight="30.0" prefWidth="177.0" text="💸 Customer Payout" textFill="WHITE">
+            <Button layoutX="813.0" layoutY="529.0" onAction="#OrderCancelBtn" prefHeight="36.0" prefWidth="146.0" style="-fx-background-color: linear-gradient(to right, #ff4e50, #c31432); -fx-text-fill: white; -fx-background-radius: 10; -fx-font-weight: bold; -fx-cursor: hand;" text="Cancel" textFill="#fffcfc" />
+            <Label layoutX="813.0" layoutY="446.0" prefHeight="30.0" prefWidth="177.0" text="💸 Customer Payout" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="OrderCustomerPayoutText" layoutX="50.0" layoutY="80.0" prefHeight="26.0" prefWidth="302.0" />
+            <TextField fx:id="OrderCustomerPayoutText" layoutX="813.0" layoutY="477.0" prefHeight="26.0" prefWidth="302.0" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="orderCustomerPane" layoutX="407.0" layoutY="99.0" prefHeight="546.0" prefWidth="863.0" visible="false">
