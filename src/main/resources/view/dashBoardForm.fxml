@@ -221,16 +221,16 @@
         </AnchorPane>
       <AnchorPane fx:id="orderPane" layoutX="263.0" layoutY="10.0" prefHeight="710.0" prefWidth="1146.0" visible="false">
          <children>
-            <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#564f84" height="677.0" layoutX="798.0" layoutY="19.0" stroke="BLACK" strokeType="INSIDE" width="328.0" />
-            <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#564f84" height="600.0" layoutX="12.0" layoutY="96.0" stroke="BLACK" strokeType="INSIDE" width="778.0" />
-            <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#564f84" height="70.0" layoutX="12.0" layoutY="19.0" stroke="BLACK" strokeType="INSIDE" width="778.0" />
+            <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#67439900" height="677.0" layoutX="798.0" layoutY="19.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" width="328.0" />
+            <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#534e8000" height="600.0" layoutX="12.0" layoutY="96.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" width="778.0" />
+            <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#544e8200" height="70.0" layoutX="12.0" layoutY="19.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" width="778.0" />
             <TextField fx:id="orderItemSearchBox" layoutX="50.0" layoutY="36.0" onAction="#orderItemSearchBoxBtn" prefHeight="36.0" prefWidth="328.0" promptText="Search Item ID" />
             <Button layoutX="334.0" layoutY="39.0" mnemonicParsing="false" onAction="#orderSearchIconBtn" prefHeight="30.0" prefWidth="43.0" style="-fx-background-color: #ffffff; -fx-background-radius: 0;" text="🔍">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Label fx:id="orderCustomerNameLabel" alignment="CENTER" layoutX="394.0" layoutY="39.0" prefHeight="30.0" prefWidth="183.0" text="Mr.Pasindu" textFill="WHITE">
+            <Label fx:id="orderCustomerNameLabel" layoutX="447.0" layoutY="39.0" prefHeight="30.0" prefWidth="183.0" text="Mr.Pasindu" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -253,7 +253,7 @@
                </font>
             </Label>
             <TextField fx:id="orderPriceText" editable="false" layoutX="327.0" layoutY="152.0" prefHeight="26.0" prefWidth="190.0" />
-            <TableView fx:id="tblOrder" layoutX="27.0" layoutY="274.0" prefHeight="400.0" prefWidth="750.0">
+            <TableView fx:id="tblOrder" layoutX="27.0" layoutY="274.0" prefHeight="381.0" prefWidth="748.0">
               <columns>
                 <TableColumn fx:id="colOrderCode" prefWidth="126.4000244140625" text="Code" />
                 <TableColumn fx:id="colOrderName" prefWidth="200.800048828125" text="Name" />
@@ -275,19 +275,19 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Line endX="154.2000732421875" endY="7.62939453125E-6" layoutX="961.0" layoutY="280.0" startX="-153.0" startY="7.62939453125E-6" />
+            <Line endX="154.2000732421875" endY="7.62939453125E-6" layoutX="961.0" layoutY="280.0" startX="-153.0" startY="7.62939453125E-6" stroke="WHITE" />
             <Label layoutX="808.0" layoutY="297.0" prefHeight="30.0" prefWidth="120.0" text="Discount (2%)" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Line endX="154.2000732421875" endY="7.62939453125E-6" layoutX="961.0" layoutY="347.0" startX="-153.0" startY="7.62939453125E-6" />
+            <Line endX="154.2000732421875" endY="7.62939453125E-6" layoutX="961.0" layoutY="347.0" startX="-153.0" startY="7.62939453125E-6" stroke="WHITE" />
             <Label layoutX="808.0" layoutY="369.0" prefHeight="30.0" prefWidth="86.0" text="TOTAL" textFill="#e40000">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <Line endX="154.2000732421875" endY="7.62939453125E-6" layoutX="961.0" layoutY="419.0" startX="-153.0" startY="7.62939453125E-6" />
+            <Line endX="154.2000732421875" endY="7.62939453125E-6" layoutX="961.0" layoutY="419.0" startX="-153.0" startY="7.62939453125E-6" stroke="WHITE" />
             <Label fx:id="orderSubTotalText" alignment="TOP_RIGHT" layoutX="949.0" layoutY="230.0" prefHeight="30.0" prefWidth="157.0" text="Rs.0.00" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
@@ -303,19 +303,13 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <Line endX="154.2000732421875" endY="7.62939453125E-6" layoutX="961.0" layoutY="217.0" startX="-153.0" startY="7.62939453125E-6" />
+            <Line endX="154.2000732421875" endY="7.62939453125E-6" layoutX="961.0" layoutY="217.0" startX="-153.0" startY="7.62939453125E-6" stroke="WHITE" />
             <Label fx:id="OrderItemText" alignment="CENTER" layoutX="808.0" layoutY="165.0" prefHeight="30.0" prefWidth="308.0" text="0 Item" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Label layoutX="811.0" layoutY="448.0" prefHeight="30.0" prefWidth="177.0" text="💸 Customer Payout" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Label>
-            <TextField fx:id="OrderCustomerPayoutText" layoutX="810.0" layoutY="479.0" prefHeight="26.0" prefWidth="302.0" />
-            <Button layoutX="810.0" layoutY="534.0" onAction="#OrderComfirmBtn" prefHeight="36.0" prefWidth="302.0" style="-fx-background-color: linear-gradient(to right, #f9d423, #ff4e50); -fx-text-fill: white; -fx-background-radius: 10; -fx-font-weight: bold; -fx-cursor: hand;" text=" Confirm Order" />
+            <Button layoutX="964.0" layoutY="474.0" onAction="#OrderComfirmBtn" prefHeight="36.0" prefWidth="146.0" style="-fx-background-color: linear-gradient(to right, #f9d423, #ff4e50); -fx-text-fill: white; -fx-background-radius: 10; -fx-font-weight: bold; -fx-cursor: hand;" text=" Confirm Order" />
             <Label fx:id="OrderDateNow" alignment="TOP_RIGHT" layoutX="996.0" layoutY="54.0" prefHeight="30.0" prefWidth="120.0" text="2025-11-13" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
@@ -326,6 +320,39 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
+            <Label fx:id="orderCustomerIdLabel" layoutX="399.0" layoutY="39.0" prefHeight="30.0" prefWidth="43.0" text="C001" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Button layoutX="813.0" layoutY="474.0" onAction="#OrderCancelBtn" prefHeight="36.0" prefWidth="146.0" style="-fx-background-color: linear-gradient(to right, #ff4e50, #c31432); -fx-text-fill: white; -fx-background-radius: 10; -fx-font-weight: bold; -fx-cursor: hand;" text="Cancel" textFill="#fffcfc" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="314.0" layoutY="102.0" prefHeight="534.0" prefWidth="1046.0" visible="false">
+         <children>
+            <Label layoutX="50.0" layoutY="43.0" prefHeight="30.0" prefWidth="177.0" text="💸 Customer Payout" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="OrderCustomerPayoutText" layoutX="50.0" layoutY="80.0" prefHeight="26.0" prefWidth="302.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="orderCustomerPane" layoutX="407.0" layoutY="99.0" prefHeight="546.0" prefWidth="863.0" visible="false">
+         <children>
+            <TableView fx:id="tblCustomerOrder" layoutX="58.0" layoutY="106.0" prefHeight="200.0" prefWidth="748.0">
+              <columns>
+                <TableColumn fx:id="colCId" prefWidth="155.2000732421875" text="Customer ID" />
+                <TableColumn fx:id="colCName" prefWidth="270.39996337890625" text="Customer Name" />
+                  <TableColumn fx:id="colCAddress" prefWidth="319.20001220703125" text="Customer Address" />
+              </columns>
+            </TableView>
+            <Label alignment="CENTER" layoutX="224.0" layoutY="49.0" prefHeight="18.0" prefWidth="416.0" text="Select Customer" textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold" size="27.0" />
+               </font>
+            </Label>
+            <Button layoutX="337.0" layoutY="339.0" onAction="#btnSelectCusomerAction" prefHeight="40.0" prefWidth="190.0" style="-fx-background-color: #836fff; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;" text="Enter Place Order 👉" />
          </children>
       </AnchorPane>
     </children>

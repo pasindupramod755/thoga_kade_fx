@@ -67,6 +67,15 @@ public class DashBoardFormContraller implements Initializable {
     private TableColumn<?, ?> colAddress;
 
     @FXML
+    private TableColumn<?, ?> colCAddress;
+
+    @FXML
+    private TableColumn<?, ?> colCId;
+
+    @FXML
+    private TableColumn<?, ?> colCName;
+
+    @FXML
     private TableColumn<?, ?> colCategory1;
 
     @FXML
@@ -98,6 +107,9 @@ public class DashBoardFormContraller implements Initializable {
 
     @FXML
     private TableColumn<?, ?> colOrderQty;
+
+    @FXML
+    private TableColumn<?, ?> colOrderTotalPrice;
 
     @FXML
     private TableColumn<?, ?> colPostalCode;
@@ -178,9 +190,6 @@ public class DashBoardFormContraller implements Initializable {
     private TableView<OrderDTO> tblOrder;
 
     @FXML
-    private TableColumn<?, ?> colOrderTotalPrice;
-
-    @FXML
     private TextField txtAddress;
 
     @FXML
@@ -234,6 +243,15 @@ public class DashBoardFormContraller implements Initializable {
     @FXML
     private Label orderIdtext;
 
+    @FXML
+    private TableView<CustomerDTO> tblCustomerOrder;
+
+    @FXML
+    private AnchorPane orderCustomerPane;
+
+    @FXML
+    private Label orderCustomerIdLabel;
+
 
 
     @FXML
@@ -247,6 +265,7 @@ public class DashBoardFormContraller implements Initializable {
         customerPane.setVisible(true);
         accountPane.setVisible(false);
         orderPane.setVisible(false);
+        orderCustomerPane.setVisible(false);
         btnCustomer.setStyle("-fx-background-color: #836fff; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
         btnHome.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
         btnItem.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
@@ -271,11 +290,7 @@ public class DashBoardFormContraller implements Initializable {
         colCity.setCellValueFactory(new PropertyValueFactory<>("city"));
         colProvince.setCellValueFactory(new PropertyValueFactory<>("province"));
         colPostalCode.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
-        try {
-            tblCustomer.setItems(dashBoardService.getAllCustomer());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        tblCustomer.setItems(dashBoardService.getAllCustomer());
         tblCustomer.getSelectionModel().selectedItemProperty().addListener((observable,oldValue,newValue) ->{
             txtId.setText(newValue.getId());
             txtName.setText(newValue.getName());
@@ -403,7 +418,15 @@ public class DashBoardFormContraller implements Initializable {
 
     @FXML
     void btnHomeAction(ActionEvent event) {
-
+        itemPane.setVisible(false);
+        customerPane.setVisible(false);
+        orderPane.setVisible(false);
+        accountPane.setVisible(true);
+        orderCustomerPane.setVisible(false);
+        btnCustomer.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
+        btnHome.setStyle("-fx-background-color: #836fff; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
+        btnOrder.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
+        btnItem.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
     }
 
     @FXML
@@ -412,6 +435,7 @@ public class DashBoardFormContraller implements Initializable {
         customerPane.setVisible(false);
         orderPane.setVisible(false);
         accountPane.setVisible(false);
+        orderCustomerPane.setVisible(false);
         btnCustomer.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
         btnHome.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
         btnItem.setStyle("-fx-background-color: #836fff; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
@@ -493,21 +517,10 @@ public class DashBoardFormContraller implements Initializable {
         btnLogOut.setDisable(true);
         accountPane.setVisible(false);
         btnHome.setDisable(true);
+        orderCustomerPane.setVisible(false);
         btnCustomer.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
         btnHome.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
         btnOrder.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
-        btnItem.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
-    }
-
-    @FXML
-    void btnOrderAction(ActionEvent event) {
-        itemPane.setVisible(false);
-        customerPane.setVisible(false);
-        orderPane.setVisible(true);
-        accountPane.setVisible(false);
-        btnCustomer.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
-        btnHome.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
-        btnOrder.setStyle("-fx-background-color: #836fff; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
         btnItem.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
     }
 
@@ -633,6 +646,53 @@ public class DashBoardFormContraller implements Initializable {
 
     //------------------------------------------------------------------------------------------------------------------>
 
+    //------------------------------------------------Select Customer for Order----------------------------------------->
+
+    @FXML
+    void btnOrderAction(ActionEvent event) {
+        itemPane.setVisible(false);
+        customerPane.setVisible(false);
+        orderPane.setVisible(false);
+        accountPane.setVisible(false);
+        orderCustomerPane.setVisible(true);
+        btnCustomer.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
+        btnHome.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
+        btnOrder.setStyle("-fx-background-color: #836fff; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
+        btnItem.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
+        colCId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colCName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colCAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        tblCustomerOrder.setItems(dashBoardService.getAllCustomer());
+    }
+
+    @FXML
+    void btnSelectCusomerAction(ActionEvent event) {
+        if (tblCustomerOrder.getSelectionModel().getSelectedItem() != null){
+            btnCustomer.setDisable(true);
+            btnItem.setDisable(true);
+            btnLogOut.setDisable(true);
+            btnHome.setDisable(true);
+            btnOrder.setDisable(true);
+            orderPane.setVisible(true);
+            orderCustomerPane.setVisible(false);
+            orderCustomerIdLabel.setText(tblCustomerOrder.getSelectionModel().getSelectedItem().getId());
+            String title = tblCustomerOrder.getSelectionModel().getSelectedItem().getTitle();
+            orderCustomerNameLabel.setText(title+"."+tblCustomerOrder.getSelectionModel().getSelectedItem().getName());
+        }else {
+            new Alert(Alert.AlertType.WARNING, "Please Select Customer!").show();
+        }
+    }
+
+    @FXML
+    void OrderCancelBtn(ActionEvent event) {
+        btnCustomer.setDisable(false);
+        btnItem.setDisable(false);
+        btnLogOut.setDisable(false);
+        btnHome.setDisable(false);
+        btnOrder.setDisable(false);
+        orderPane.setVisible(false);
+        orderCustomerPane.setVisible(true);
+    }
 
 
 }
