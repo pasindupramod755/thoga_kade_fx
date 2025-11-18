@@ -334,4 +334,16 @@ public class DashBoardServiceContraller {
             throw new RuntimeException(e);
         }
     }
+
+    public void orderComfirm(Double price, Double customerPay) {
+        if (price < customerPay){
+            new Alert(Alert.AlertType.CONFIRMATION, "Customer is refund "+String.format("%.2f",(customerPay-price))).show();
+        }else {
+            new Alert(Alert.AlertType.WARNING, "Payment is not complete").show();
+        }
+    }
+
+    public void clearObservable(){
+        orderObservable.clear();
+    }
 }

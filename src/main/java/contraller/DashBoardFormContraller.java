@@ -254,12 +254,6 @@ public class DashBoardFormContraller implements Initializable {
     private Label orderCustomerIdLabel;
 
 
-
-    @FXML
-    void OrderComfirmBtn(ActionEvent event) {
-
-    }
-
     @FXML
     void btnCustomerAction(ActionEvent event) {
         itemPane.setVisible(false);
@@ -551,6 +545,7 @@ public class DashBoardFormContraller implements Initializable {
             orderQtyText.setText(String.valueOf(tblOrder.getSelectionModel().getSelectedItem().getQtyOnHand()));
             orderIdtext.setText(String.valueOf(tblOrder.getSelectionModel().getSelectedItem().getCode()));
         });
+        clearOrderTextField();
         tblOrder.refresh();
 
     }
@@ -560,6 +555,7 @@ public class DashBoardFormContraller implements Initializable {
         ObservableList<OrderDTO> orderDTOS = dashBoardService.deleteOrder(tblOrder.getSelectionModel().getSelectedItem().getCode());
         setTable(orderDTOS);
         setTotal();
+        clearOrderTextField();
     }
 
     @FXML
@@ -585,6 +581,7 @@ public class DashBoardFormContraller implements Initializable {
         ObservableList<OrderDTO> orderDTOS = dashBoardService.updateOrder(orderIdtext.getText(), Integer.parseInt(orderQtyText.getText()));
         setTable(orderDTOS);
         setTotal();
+        clearOrderTextField();
     }
 
     @Override
@@ -720,8 +717,27 @@ public class DashBoardFormContraller implements Initializable {
             btnOrder.setDisable(false);
             orderPane.setVisible(false);
             orderCustomerPane.setVisible(true);
+            dashBoardService.clearObservable();
+            clearOrderTextField();
         }
     }
 
+    //---------------------------------------Place Order------------------------------------------------->
+    @FXML
+    void OrderComfirmBtn(ActionEvent event) {
+        Double customerPay = Double.valueOf(OrderCustomerPayoutText.getText());
+        Double price = Double.valueOf((orderFinalTotalText.getText()).substring(3));
+        dashBoardService.orderComfirm(price,customerPay);
+    }
+
+    //textField Clear
+    public void clearOrderTextField(){
+        orderCodeText.setText("");
+        orderQtyText.setText("1");
+        orderPriceText.setText("");
+        orderIdtext.setText("");
+        orderItemSearchBox.setText("");
+
+    }
 
 }
